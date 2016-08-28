@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>:hover()</title>
+	<script src="js/one-a.js"></script>
+	<script src="js/jquery.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<style>
+	*{
+		margin:0;
+		padding:0;
+	}
+		.wrap{
+			width: 450px;
+			height: 130px;
+			position:relative;
+			left: 800px;
+			top: 150px;
+			z-index: -20;
+		}
+
+		button{
+			width: 200px;
+			height: 45px;
+			margin:10px;
+		}
+		.btn{
+			font-size: 20px;
+		}
+		.btn1:active,.btn2:active,.btn3:active,.btn4:active{
+			background: #ccc;
+		}
+		.btn.btn-default{
+			outline: none;
+		}
+		.btn.btn-primary{
+			outline: none;
+		}
+		.btn.btn-success{
+			outline: none;
+		}
+		.btn.btn-info{
+			outline: none;
+		}
+		.color{
+			background:rgba(0,0,0,0.5);
+			width: 100%;
+			height: 970px;
+			position: absolute;
+			top:0;
+			left:0;
+			z-index: 10;
+			display: none;
+			
+		}
+		.alert,.alert-c,.alert-b{
+			width: 600px;
+			height: 240px;
+			border-radius: 20px;
+			text-align:center;
+			display:none;
+			position: fixed;
+			left: 720px;
+			top: 300px;
+			z-index: 30;
+		}
+		/*.alert-b{
+				width: 600px;
+				height: 240px;
+				border-radius: 20px;
+				text-align:center;
+				display:none;
+				position: fixed;
+				left: 720px;
+				top: 300px;
+				z-index: 30;
+				
+		}*/
+		.alert-d{
+				width: 600px;
+				height: 200px;
+				border-radius: 20px;
+				text-align:center;
+				display:none;
+				position: fixed;
+				left: 720px;
+				top: 300px;
+				z-index: 30;
+				background: #f8f8f8;
+		}
+
+		.d{
+			width: 100%;
+			height: 100%;
+			border-radius: 20px;
+		}
+		.a{
+			width: 100%;
+			height: 160px;
+			border:1px solid #999;
+			border-radius: 10px 10px  0 0;
+			background: #f8f8f8;
+		}
+		h3{
+			text-align: center;
+			color: blue;
+		}
+		p{
+			font-size: 20px;
+			margin-top: 20px;
+		}
+
+
+		.btn1,.btn3{
+			width: 100%;
+			height: 50px;
+			margin:0 auto;
+			font-size: 23px;
+			border-radius: 0 0 10px 10px;
+			border:1px solid #999;
+			border-top:none;
+			background: #f8f8f8;
+			outline: none;
+			color: red;
+		}
+		.btn2-fl,.btn2-fr{
+			width: 50%;
+			height: 50px;
+			margin:0 auto;
+			font-size: 23px;
+			border-radius: 0 0 10px 10px;
+			border:1px solid #999;
+			border-top:none;
+			background: #f8f8f8;
+			outline: none;
+			color: red;
+		}
+		.btn2-fl{
+			float: left;
+			display: inline-block;
+			border-radius: 0 0 0 10px;
+		}
+		.btn2-fr{
+			border-radius: 0 0 10px 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="color"></div>
+	<div class="wrap">
+		<button type="button" class="btn btn-default">默认样式</button>
+
+		<button type="button" class="btn btn-primary">弹出 Confirm</button>
+
+		<button type="button" class="btn btn-success">弹出 Alert</button>
+
+		<button type="button" class="btn btn-info">延时关闭 Message</button>
+	</div>
+	<div class="alert">
+		<div class="a">
+			<h3>弹出层</h3>
+			<p>自定义弹窗内容，居左对齐显示，告知需要确认的信息等</p>
+			<p>自定义弹窗内容，居左对齐显示，告知需要确认的信息等</p>
+		</div>
+		<button class="btn1">确定</button>
+	</div>
+	<div class="alert-b">
+		<div class="a">
+			<h3>弹出 Confirm</h3>
+			<p>自定义弹窗内容，居左对齐显示，告知需要确认的信息等</p>
+			<p>自定义弹窗内容，居左对齐显示，告知需要确认的信息等</p>
+		</div>
+		<button class="btn2-fl">取消</button>
+		<button class="btn2-fr">确定</button>
+	</div>
+	<div class="alert-c">
+		<div class="a">
+			<h3>弹出 Alert</h3>
+			<p>自定义弹窗内容，居左对齐显示，告知需要确认的信息等</p>
+			<p>自定义弹窗内容，居左对齐显示，告知需要确认的信息等</p>
+		</div>
+		<button class="btn3">确定</button>
+	</div>
+	<div class="alert-d">
+		<div class="d">
+			<h3>延时关闭 Message</h3>
+			<p>自定义弹窗内容，居左对齐显示，告知需要确认的信息等</p>
+			<p>自定义弹窗内容，居左对齐显示，告知需要确认的信息等</p>
+		</div>
+	</div>
+<script>
+	$(function(){
+		$(".wrap .btn-default").click(function(){
+			$(".alert").show();
+		});
+		$(".wrap .btn-default").click(function(){
+			$(".color").show();
+		});
+		$(".btn1").click(function(){
+			$(".alert").hide();
+		});
+		$(".btn1").click(function(){
+			$(".color").hide();
+		});
+
+
+		$(".wrap .btn-primary").click(function(){
+			$(".alert-b").show();
+		});
+		$(".wrap .btn-primary").click(function(){
+			$(".color").show();
+		});
+		$(".btn2-fl").click(function(){
+			$(".alert-b").hide();
+		});
+		$(".btn2-fl").click(function(){
+			$(".color").hide();
+		});
+		$(".btn2-fr").click(function(){
+			$(".alert-b").hide();
+		});
+		$(".btn2-fr").click(function(){
+			$(".color").hide();
+		});
+
+
+		$(".wrap .btn-success").click(function(){
+			$(".alert-c").show();
+		});
+		$(".wrap .btn-success").click(function(){
+			$(".color").show();
+		});
+		$(".btn3").click(function(){
+			$(".alert-c").hide();
+		});
+		$(".btn3").click(function(){
+			$(".color").hide();
+		});
+
+
+		$(".wrap .btn-info").click(function(){
+			$(".alert-d").show().delay(3000).fadeOut ();
+		});
+		$(".wrap .btn-info").click(function(){
+			$(".color").show().delay(3000).fadeOut ();
+		});
+	});
+</script>
+</body>
+</html>

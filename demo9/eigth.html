@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>点击图片逐渐放大</title>
+	<style type="text/css">
+        .wrap{
+			width: 400px;
+			margin:200px auto;
+			text-align:left;
+			padding:0;
+		}
+		#con{
+			width: 400px;
+			height: 500px;
+			position: relative;
+			cursor: pointer;
+		}
+		.big{
+			position: absolute;
+			left: 0;
+			top:0;
+			width: 400px;
+			height: 500px;
+			border:1px dashed #c00;
+			z-index: 2;
+			background: #fff;
+			opacity: 0.3;
+			filter:alpha(opacity:30);
+		}
+		.small{
+				background: #eee;
+				position: relative;
+		}
+		.small img{
+				position: absolute;
+				top:0;
+				left:0;
+				z-index: 1;
+				width: 400px;
+				height: 500px;
+		}
+    </style>
+</head>
+<body>
+<div id="con" class="wrap">
+    <div class="small">
+        <img src="images/p.jpg" alt="放大镜图片二" />
+    </div>
+    <div class="big"></div>
+</div>
+<script>
+	(function(){
+		var con = document.getElementById('con');
+		var img = con.getElementsByTagName('img')[0];
+		con.onclick = function(){
+			act(img, {width:600, height:700, top:-100,left:-100}, function(){
+				alert('动画已经完成!');
+			});
+		}
+        function css(odj, attr){
+			if(odj.currentStyle){
+				return odj.currrentStyle[attr];
+			}else{
+				return getComputedStyle(odj, false)[attr];
+			}
+		}
+		function act(odj, json, fn){
+			clearInterval(odj.timer);
+			odj.timer = setInterval(function(){
+				var stop = true;
+				for(var p in json){
+					var value = json[p];
+					var cur = parseInt(css(odj, p));
+					var speed = (value - cur) / 8;
+					speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+					if(cur != value){
+						stop = false;
+						odj.style[p] = cur + speed +'px';
+					}
+				}
+				if(stop){
+					clearInterval(odj.timer);
+					odj.timer = null;
+					fn && fn();
+				}
+			}, 30);
+		}
+	}());
+</script>
+</body>
+</html>

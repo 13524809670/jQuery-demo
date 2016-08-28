@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全选反选少选复选框</title>
+	<style type="text/css">
+		.wrap{
+			width: 80px;
+			height: 600px;
+			background: #cfd;
+			margin:100px auto;
+		}
+		li{
+			list-style: none;
+		}
+		.all{
+			color: red;
+		}
+		#all{
+			width: 20px;
+			height: 20px;	
+		}
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<li><input type="checkbox" id="all"><label class="all">全选</label></li>
+	<li><input type="checkbox" name="it"><label>001</label></li>
+	<li><input type="checkbox" name="it"><label>002</label></li>
+	<li><input type="checkbox" name="it"><label>003</label></li>
+	<li><input type="checkbox" name="it"><label>004</label></li>
+	<li><input type="checkbox" name="it"><label>005</label></li>
+	<li><input type="checkbox" name="it"><label>006</label></li>
+	<li><input type="checkbox" name="it"><label>007</label></li>
+	<li><input type="checkbox" name="it"><label>008</label></li>
+	<li><input type="checkbox" name="it"><label>009</label></li>
+	<li><input type="checkbox" name="it"><label>010</label></li>
+	<li><input type="checkbox" name="it"><label>011</label></li>
+	<li><input type="checkbox" name="it"><label>012</label></li>
+	<li><input type="checkbox" name="it"><label>013</label></li>
+	<li><input type="checkbox" name="it"><label>014</label></li>
+	<li><input type="checkbox" name="it"><label>015</label></li>
+	<li><input type="checkbox" name="it"><label>016</label></li>
+	<li><input type="checkbox" name="it"><label>017</label></li>
+	<li><input type="checkbox" name="it"><label>018</label></li>
+	<li><input type="checkbox" name="it"><label>019</label></li>
+	<li><input type="checkbox" name="it"><label>020</label></li>
+</div>
+<script>
+	(function(){
+        var all = document.getElementById('all');
+        var check = document.getElementsByTagName('input');
+        var abc = check.length - 1;
+        all.onclick = function(){
+            choose(this.checked);
+        }
+		function each(arr, callback){
+            var abc = arr.length;
+            for(var i = 1; i < abc; i++){
+                if(callback.call(arr[i], i, arr[i]) === false){
+					break;
+				}
+			}
+			return arr;
+		}
+		function choose(t){
+			each(check, function(i){
+				check[i].checked = t;
+			});
+		}
+		each(check, function(i){
+			check[i].onclick = function(){
+				if(!this.checked){
+					all.checked = false;
+				}
+				if(checkAbc() == abc){
+					all.checked = turn;
+				}else{
+					all.checked = false;
+				}
+			}
+		});
+		function checkAbc(){
+			var n = 0;
+			each(check, function(i){
+				if(this.checked){
+					n++;
+				}
+			});
+			return n;
+		}
+	}());
+</script>
+</body>
+</html>

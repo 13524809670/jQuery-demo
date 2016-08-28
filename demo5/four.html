@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>限制输入框的内容长度</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/resat.css" media="all"/>
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+	<style>
+		.form-horizontal{
+			margin:6% 35%
+		}
+		.btn{
+			width: 367px;
+			height: 45px;
+			background: #0cf;
+			color: #fff;
+			font-size: 20px;
+			margin: 10px 0 0 10px;
+		}
+		#text{
+			width: 367px;
+			height: 230px;
+		}
+		.left{
+			width: 200px;
+			height: 40px;
+			border:1px solid #999;
+			font-size: 18px;
+			color: red;
+			float: right;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+<form class="form-horizontal col-sm-3 user-input" id="form" >
+  	<div class="form-group">
+    	<label for="exampleInputName2" class="col-sm-2 control-label">Name</label>
+    	<div class="col-sm-10">
+			<input type="text" class="form-control" id="user" maxlength="15" placeholder="Jane Doe">
+			<div class="popover right"><div class="popover-content"><div class="left">最多只能输入15个中文</div></div><div class="arrow"></div></div>
+		</div>
+  	</div>
+  	<div class="form-group">
+    	<label for="exampleInputPassword1" class="col-sm-2 control-label">Password</label>
+	    <div class="col-sm-10">
+	    	<input type="password" class="form-control" id="Password" maxlength="8"  placeholder="Password">
+	    </div>
+ 	</div>
+  	<div class="form-group">
+    	<label for="exampleInputRemarks" class="col-sm-2 control-label">备注</label>
+    	<div class="col-sm-10">
+    		<textarea class="form-control" id="text" rows="3"></textarea>
+    	</div>
+  	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+	  	<div class="checkbox">
+		  <label>
+		    <input type="checkbox" value="">记住我
+		  </label>
+		</div>
+	</div>
+  	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+  			<button type="submit" class="btn btn-default">Sign in</button>
+		</div>
+	</div>
+</form>
+<script>
+	//获取节点和变量
+	(function(){
+		var form = document.getElementById('form');
+		var input = form.getElementsByTagName('input');
+		var textarea = form.getElementsByTagName('textarea')[0];
+		var btn = document.getElementById('btn');
+		btn.onclick = function(){
+			max(textarea);
+			return false;
+		}
+		textarea.onfocus=function(){
+
+		}
+		function max(o){
+			var m = o.getAttribute('maxlength');
+			if(o.value.length >=m && o.className.indexOf('error') == -1){
+				error(o, '信息过长只能显示50字');
+				o.className += 'error';
+			}
+		}
+		function error(o, txt, show){
+			if(arguments.length == 3 && show){
+				o.tip && (o.tip.style.display ='none');
+			}else{
+				if(o.className.search(/error/) == -1){
+					o.tip = over(o, txt);
+				}else{
+					o.tip.style.display = 'block';
+				}
+			}
+		}
+		//弹出内容
+		function over(o, txt){
+			var pop =div('popover right');
+			var arr =div('arrow');
+			var content=div('popover-content');
+			content.appendChild(div('', 'p', txt));
+			pop.appendChild(content);
+			pop.appendChild(arr);
+			o.parentNode.insertBefore(pop, o.nextSibling);
+			return pop;
+		}
+		//固定用法
+		function div(cls, tag, txt){
+			if(!tag){
+				tag=cls;
+			}
+			var d =document.createElement('div' || tag);
+			d.className =cls;
+			txt && (d.innerHTML =txt);
+			return d;
+		}
+	}());
+</script>
+</body>
+</html>

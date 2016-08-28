@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<script src="js/jquery.js"></script>
+	<!-- <script src="js/jjs_jquery-1.7.2.min.js"></script>  -->
+	<link rel="stylesheet" href="min/index.min.css">
+	<!-- <script src="js/jquery.min.js"></script> -->
+</head>
+<body>
+	<div class="wrap">
+		<ul class="con">
+			<li class="one"><a href="#"><img src="images/8.jpg" alt="" target="_blank"></a></li>
+			<li class="one"><a href="#"><img src="images/1.jpg" alt="" target="_blank" ></a></li>
+			<li class="one"><a href="#"><img src="images/cd.jpg" alt="" target="_blank" ></a></li>
+			<li class="one"><a href="#"><img src="images/p.jpg" alt="" target="_blank" ></a></li>
+			<li class="one"><a href="#"><img src="images/5_02.jpg" alt="" target="_blank" ></a></li>
+			<li class="one"><a href="#"><img src="images/a2.jpg" alt="" target="_blank" ></a></li>
+			<li class="one"><a href="#"><img src="images/e4.jpg" alt="" target="_blank" ></a></li>
+			<li class="one"><a href="#"><img src="images/b0.jpg" alt="" target="_blank" ></a></li>
+			<li class="one"><a href="#"><img src="images/3a.jpg" alt="" target="_blank" ></a></li>
+		</ul>
+		<div class="btn-a">
+			<ul class="con-a">
+				<li class="two">1</li>
+				<li class="two">2</li>
+				<li class="two">3</li>
+				<li class="two">4</li>
+				<li class="two">5</li>
+				<li class="two">6</li>
+				<li class="two">7</li>
+				<li class="two">8</li>
+				<li class="two">9</li>
+			</ul>
+			<div class="icon">
+				<a id="fl"href="javascript:;;"><</a>
+				<a id="fr"href="javascript:;;">></a>
+			</div>
+		</div>
+	</div>
+<script>
+	$(document).ready(function(){
+		var length,
+		currentIndex = 0,
+		interval,
+		hasStarted = false,
+		t = 2000;
+		length = $(".one").length;
+		$(".one:not(:first)").hide();
+		$(".two:first").addClass("two-selected");
+		$(".icon").hide();
+		$(".one, #fl, #fr").hover(function(){
+			stop();
+			$(".icon").show();
+		},function(){
+			$(".icon").hide(); 
+			start();
+		});
+
+		$(".two").hover(function(e){
+			stop();
+			var preIndex = $(".two").filter(".two-selected").index();
+			currentIndex = $(this).index();
+			play(preIndex, currentIndex);
+		},function(){
+			start();
+		});
+
+		$("#fl").unbind("click");
+		$("#fl").bind("click", function(){
+			pre();
+		});
+
+		$("#fr").unbind("click");
+		$("#fr").bind("click", function(){
+			next();
+		});
+
+		function pre(){
+			var preIndex = currentIndex;
+			currentIndex = (--currentIndex + length) % length;
+			play(preIndex, currentIndex);
+		}
+
+		function next(){
+			var preIndex = currentIndex;
+			currentIndex = ++currentIndex % length;
+			play(preIndex, currentIndex);
+		}
+
+		function play(preIndex, currentIndex){
+			$(".one").eq(preIndex).fadeOut(500)
+			.parent().children().eq(currentIndex).fadeIn(1000);
+			$(".two").removeClass("two-selected");
+			$(".two").eq(currentIndex).addClass("two-selected");
+			console.log(currentIndex)
+		}
+		function start(){
+			if(!hasStarted){
+				hasStarted = true;
+				interval = setInterval(next, t);
+			}
+		}
+		function stop(){
+			clearInterval(interval);
+			hasStarted = false;
+		}
+		start();
+	});
+</script>
+</body>
+</htmli

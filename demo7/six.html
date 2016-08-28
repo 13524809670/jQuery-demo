@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文本自动滚动</title>
+	<style type="text/css">
+		.wrap{
+			background: #9cf;
+			margin:100px auto;
+			width: 800px;
+			height: 300px;
+			text-align: center;
+		}
+		h2{
+			color: red;
+			padding-top: 30px;
+		}
+		#one{
+			overflow: hidden;
+			height: 150px;
+		}
+		.list{
+			margin-right: 40px;
+		}
+		.list li{
+			list-style: none;
+		}
+		li{
+			padding:3px;
+			background: #890;
+			font-size: 20px;
+			color: #fff;
+			font-weight: 700;
+		}
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<h2>文本自动滚动</h2>
+	<div id="one" class="first" data-rwidth="100" data-rheight="100">
+		<ul id="ul" class="list" >
+			<li>滟滟随波千万里，何处春江无月明！</li>
+            <li>江流宛转绕芳甸，月照花林皆似霰。</li>
+            <li>空里流霜不觉飞，汀上白沙看不见。</li>
+            <li>江天一色无纤尘，皎皎空中孤月轮。</li>
+            <li>江畔何人初见月？江月何年初照人？</li>
+            <li>人生代代无穷已，江月年年望相似。</li>
+            <li>不知江月待何人，但见长江送流水。</li>
+            <li>白云一片去悠悠，青枫浦上不胜愁。</li>
+            <li>谁家今夜扁舟子？何处相思明月楼？</li>
+		</ul>
+	</div>
+</div>
+<script>
+	(function(){
+		var ul = document.getElementById('ul');
+		var li = ul.getElementsByTagName('li');
+		var abc = li.length;
+		function auto(){
+			act(ul,'marginTop', -20, function(){
+				ul.appendChild(ul.children[0]);
+				ul.style.marginTop = 0;
+				setTimeout(function(){
+					auto();
+				},800);
+			});
+		}
+		auto();
+		function css(odj,attr){
+			if(odj.currentStyle){
+				return odj.currentStyle[attr];
+			}else{
+				return getComputedStyle(odj,null)[attr];
+			}
+		}
+		function act(odj,attr,target,fn){
+			clearInterval(odj.timer);
+			odj.timer = setInterval(function(){
+				var cur = parseInt(css(odj,attr));
+				var speed = (target - cur) / 8;
+				var stop = true;
+				speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+				if(target!=cur){
+					stop = false;
+				}
+				odj.style[attr] = speed + cur + 'px';
+				if(stop){
+					clearInterval(odj.timer);
+					odj.timer = null;
+					fn && fn.call(odj);
+				}
+			},20);
+		}
+	}());
+</script>
+</body>
+</html>
