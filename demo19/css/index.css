@@ -1,0 +1,49 @@
+*{margin:0;padding:0;}
+body{background: #d5dee7;}
+a{color: #c8dce5;}
+h3{
+	margin:10px 10px 0 10px;
+	color: #fff;
+	font:18pt Arial, sans-serif;
+	letter-spacing: -1px;
+	font-weight: bold;
+}
+.box {
+	width: 325px;
+	height: 260px;
+	margin:10px;
+	float: left;
+	background: #161613;
+	position: relative;
+	border:2px solid #222;
+	overflow: hidden;
+}
+.box img{
+	position: absolute;
+	top:0;
+	left:0;
+	border:0;
+}
+.box p{
+	padding:0 10px;
+	color: #afafaf;
+	font-weight: bold;
+	font: 10pt "Lucida Grande", Arial, sans-serif;
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+}
+.caption{
+	float: left;
+	background: #000;
+	height: 100px;
+	width: 100%;
+	opacity: 0.7;
+	position: absolute;
+}
+.one .caption{
+	top:260px;
+	left:0;
+}
+.two .caption{
+	top:220px;
+	left:0;
+}
